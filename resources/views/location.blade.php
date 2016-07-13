@@ -60,11 +60,33 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">Add Pokemon Location</div>
 
                 <div class="panel-body">
-                   <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-                   <div id="map"></div>
+                  
+                    <!-- New Task Form -->
+        <form action="/task" method="POST" class="form-horizontal">
+            {{ csrf_field() }}
+            <input id="pac-input" name="location" class="controls" type="text" placeholder="Search Box">
+            <input id="city" name="city"  type="hidden" value="">
+            <div id="map"></div>
+            <!-- Task Name -->
+            <br><br>
+            <div class="form-group">
+                <label for="task-name" class="col-sm-3 control-label">Pokemon</label>
+                <div class="col-sm-6">
+                    <input type="text" name="name" id="task-name" class="form-control">
+                </div>
+            </div>
+            <!-- Add Task Button -->
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-6">
+                    <button type="submit" class="btn btn-default">
+                        <i class="fa fa-plus"></i> Add Pokemon Location
+                    </button>
+                </div>
+            </div>
+        </form>
                 </div>
             </div>
         </div>
@@ -79,9 +101,10 @@
               mapTypeId: google.maps.MapTypeId.ROADMAP
           });
           if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
+             navigator.geolocation.getCurrentPosition(function (position) {
              initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
              map.setCenter(initialLocation);
+             console.log(position.coords.latitude);
          });
         }
     // Create the search box and link it to the UI element.

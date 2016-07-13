@@ -18,3 +18,5 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/location', 'LocationController@index');
+Route::post('/addLocation', 'LocationController@store');
