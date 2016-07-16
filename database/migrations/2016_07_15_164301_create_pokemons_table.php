@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLocationTable extends Migration
+class CreatePokemonsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,11 @@ class CreateLocationTable extends Migration
      */
     public function up()
     {
-        Schema::create('locations', function (Blueprint $table) {
+        Schema::create('pokemons', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->index();
-            $table->string('location_title');
-            $table->string('city');
+            $table->string('name');
+            $table->string('filename');
+            $table->string('rarity');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateLocationTable extends Migration
      */
     public function down()
     {
-        Schema::drop('location');
+        Schema::drop('pokemons');
     }
 }
