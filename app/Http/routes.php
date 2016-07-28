@@ -22,3 +22,5 @@ Route::get('/location', 'LocationController@index');
 Route::post('/addLocation', 'LocationController@store');
 Route::get('/alert', 'AlertController@index');
 Route::post('/addAlert', 'AlertController@store');
+Route::get('/my-alerts', 'MyAlertsController@index');
+Route::delete('/my-alerts/{alert}', 'MyAlertsController@destroy');
