@@ -1,14 +1,14 @@
 <?php
 
 namespace App;
-use App\User;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
-class Location extends Model
+class Alert extends Model
 {
-     protected $fillable = [
-        'location_title', 'city','lat','lang','pokemon_ids',
+   protected $fillable = [
+       'city','pokemon_id',
     ];
 
     public function user()

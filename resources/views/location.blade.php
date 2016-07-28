@@ -126,12 +126,12 @@ input[type="radio"]{
         <div class="panel-body">
          <!-- Display Validation Errors -->
          @include('common.errors')
-         <!-- New Task Form -->
+         <!-- New Location Form -->
          <form action="{{ url('addLocation') }}" method="POST" class="form-horizontal">
           {{ csrf_field() }}
           <input id="pac-input" name="location" class="controls" type="text" placeholder="Search Box">
           <div id="map"></div>
-          <!-- Task Name -->
+          <!-- Location Name -->
           <br><br>
           <div class="form-group">
             <label for="city" class="col-sm-3 control-label">City</label>
@@ -162,7 +162,7 @@ input[type="radio"]{
           </div>
           @endforeach
         </div>
-        <!-- Add Task Button -->
+        <!-- Add Location Button -->
         <div class="form-group">
           <div class="col-sm-offset-3 col-sm-6">
             <button type="submit" class="btn btn-default">

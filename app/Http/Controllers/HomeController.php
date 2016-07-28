@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Location;
 use App\Http\Requests;
+use App\Pokemon;
 use Illuminate\Http\Request;
+use App\Repositories\PokemonRepository;
 
 class HomeController extends Controller
 {
@@ -12,9 +15,14 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    
+    protected $pokemons;
+
+
+    public function __construct(PokemonRepository $pokemons)
     {
         $this->middleware('auth');
+        $this->pokemons = $pokemons;
     }
 
     /**
@@ -22,8 +30,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $get_pokemons =  $this->pokemons->getPokemon();
+        $locations = Location::orderBy('created_at', 'desc')->get();
+        return view('home', [
+        'locations' => $locations,
+        'pokemons' => $get_pokemons
+    ]);
     }
 }

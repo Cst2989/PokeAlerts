@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Location;
+use App\Alert;
 class User extends Authenticatable
 {
     /**
@@ -26,5 +27,9 @@ class User extends Authenticatable
     public function locations()
     {
         return $this->hasMany(Location::class);
+    }
+    public function alerts()
+    {
+        return $this->hasMany(Alert::class);
     }
 }

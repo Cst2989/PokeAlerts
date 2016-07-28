@@ -20,3 +20,5 @@ Route::auth();
 Route::get('/home', 'HomeController@index');
 Route::get('/location', 'LocationController@index');
 Route::post('/addLocation', 'LocationController@store');
+Route::get('/alert', 'AlertController@index');
+Route::post('/addAlert', 'AlertController@store');
