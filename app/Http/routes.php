@@ -16,6 +16,13 @@ Route::get('/', function () {
 });
 Route::get('/posts','PostController@index');
 
+Route::get('/gym', function () {
+	return view('gym');
+});
+
+Route::get('/api/pokemon','ApiController@pokemon');
+Route::get('/api/location','ApiController@location');
+
 Route::post('/send', 'EmailController@send');
 
 

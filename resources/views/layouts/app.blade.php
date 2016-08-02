@@ -51,6 +51,7 @@
                     <li><a href="{{ url('/location') }}">Add Location</a></li>
                     <li><a href="{{ url('/alert') }}">Add Alert</a></li>
                     <li><a href="{{ url('/posts') }}">Blog</a></li>
+                     <li><a href="{{ url('/gym') }}">Gym</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
