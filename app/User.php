@@ -12,8 +12,10 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $table = 'users';
+
     protected $fillable = [
-        'name', 'email', 'password',
+    'name', 'email', 'password',
     ];
 
     /**
@@ -22,14 +24,43 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+    'password', 'remember_token',
     ];
-    public function locations()
+
+    public function posts()
     {
-        return $this->hasMany(Location::class);
+        return $this->hasMany('App\Posts','author_id');
     }
-    public function alerts()
+  // user has many comments
+    public function comments()
     {
-        return $this->hasMany(Alert::class);
+        return $this->hasMany('App\Comments','from_user');
     }
+    public function can_post()
+    {
+        $role = $this->role;
+        if($role == 'author' || $role == 'admin')
+        {
+          return true;
+      }
+      return false;
+  }
+  public function is_admin()
+  {
+    $role = $this->role;
+    if($role == 'admin')
+    {
+      return true;
+    }
+  return false;
+}
+
+public function locations()
+{
+    return $this->hasMany(Location::class);
+}
+public function alerts()
+{
+    return $this->hasMany(Alert::class);
+}
 }

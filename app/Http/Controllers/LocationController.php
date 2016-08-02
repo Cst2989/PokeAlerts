@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Mail;
 use App\Location;
+use App\Alert;
+use App\User;
 use App\Pokemon;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -35,8 +38,10 @@ class LocationController extends Controller
         $get_pokemons =  $this->pokemons->getPokemon();
         return view('location', [
             'pokemons' => $get_pokemons,
-        ]);
+            ]);
     }
+
+
 
     public function store(Request $request)
     {
@@ -46,7 +51,7 @@ class LocationController extends Controller
             'lat' => 'required|max:255',
             'lang' => 'required|max:255',
             'pokemon_ids' => 'required|max:255',
-        ]);
+            ]);
 
         // Create The Task...
         $request->user()->locations()->create([
@@ -55,8 +60,34 @@ class LocationController extends Controller
             'lat' => $request->lat,
             'lang' => $request->lang,
             'pokemon_ids' => $request->pokemon_ids,
-        ]);
+            ]);
 
-        return redirect('/location');
-    }
+        //SEND MAIL TO USERS WHO HAVE ALERTS
+
+        $pokemon = Pokemon::where('id', $request->pokemon_ids)->value('name');
+        $pokemon_filename = Pokemon::where('id', $request->pokemon_ids)->value('filename');
+
+        $matchThese = ['pokemon_id' => $request->pokemon_ids, 'city' => 'Iasi'];
+        $alerts = Alert::where($matchThese)->get();
+        foreach ($alerts as $alert) {
+
+           $email_user = User::where('id', $alert->user_id)->value('email');
+
+         //
+         //Add Mailgun when going live
+         //
+           Mail::send('emails.send', ['pokemon' => $pokemon, 'pokemon_filename' => $pokemon_filename], function ($message) use ($email_user)
+           {
+            $message->subject("New Pokemon Alert!");
+            $message->to($email_user);
+
+            });
+
+       }
+
+
+
+
+       return redirect('/location');
+   }
 }
