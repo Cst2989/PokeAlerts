@@ -25,7 +25,7 @@ Route::get('/api/location','ApiController@location');
 
 Route::post('/send', 'EmailController@send');
 
-
+Route::auth();
 Route::group(['middleware' => ['auth']], function()
 {
 
@@ -62,3 +62,4 @@ Route::get('user/{id}/posts','UserController@user_posts')->where('id', '[0-9]+')
 // display single post
 
 Route::get('/{slug}',['as' => 'post', 'uses' => 'PostController@show'])->where('slug', '[A-Za-z0-9-_]+');
+
